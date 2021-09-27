@@ -1,5 +1,5 @@
 {
-    "name": "nguyenhiep/booking_lunch",
+    "name": "nguyenhiep/lunch_booking",
     "description": "Booking lunch at erp",
     "type": "library",
     "require": {

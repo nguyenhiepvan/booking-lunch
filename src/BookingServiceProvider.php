@@ -19,7 +19,7 @@ class BookingServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('booking-lunch')
+            ->name('lunch-booking')
             ->hasConfigFile();
     }
 }
