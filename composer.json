@@ -1,0 +1,30 @@
+{
+    "name": "nguyenhiep/booking_lunch",
+    "description": "Booking lunch at erp",
+    "type": "library",
+    "require": {
+        "nesk/puphpeteer": "^2.0",
+        "symfony/var-dumper": "^5.3",
+        "illuminate/collections": ">=7",
+        "spatie/laravel-package-tools": "^1.9"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nguyenhiep\\BookingLunch\\BookingServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Nguyenhiep\\BookingLunch\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nguyễn Văn Hiệp",
+            "email": "nguyenhiepvan.bka@gmail.com"
+        }
+    ]
+}
