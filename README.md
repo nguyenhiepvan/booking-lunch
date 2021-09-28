@@ -4,7 +4,7 @@ booking lunch at erp
 # Installation
 
 ```
-composer require nguyenhiep/lunch_booking
+composer require nguyenhiep/lunch_booking:dev-master
 npm install @nesk/puphpeteer
 ```
 
