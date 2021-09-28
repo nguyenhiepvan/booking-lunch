@@ -51,7 +51,7 @@ class User
     {
         $context = $this->browser->createIncognitoBrowserContext();
         $page    = $context->newPage();
-        $page->goto(config("lunch-booking.login_url"), ['waitUntil' => 'networkidle0']);
+        $page->tryCatch->goto(config("lunch-booking.login_url"), ['waitUntil' => 'networkidle0']);
         $page->type("body > app-root > app-authentication > app-authentication-login > div > div > div > div.form-region > div.input-group.d-inline-block > form > nz-tabset > div > div > div > div.mb-3.email-code-username.ng-star-inserted > input", $this->username);
         $page->type("body > app-root > app-authentication > app-authentication-login > div > div > div > div.form-region > div.input-group.d-inline-block > form > nz-tabset > div > div > div > div.mb-2.password.position-relative.ng-star-inserted > input", $this->password);
         $page->click("body > app-root > app-authentication > app-authentication-login > div > div > div > div.form-region > div.input-group.d-inline-block > form > nz-tabset > div > div > div > button");
@@ -62,7 +62,7 @@ class User
     public function book_lunch($page): bool
     {
         try {
-            $page->goto(config("lunch-booking.booking_url"));
+            $page->tryCatch->goto(config("lunch-booking.booking_url"));
             $page->waitForSelector('#layoutEmbed > app-dynamic-embed > app-dynamic-layout-detail > div > layout-embed > div > layout-embed-stack:nth-child(1) > div > nz-affix > div > div > app-d-view > data-table > app-render-tree > div > div > ejs-schedule > div.e-table-container > div > table', ['timeout' => 60000, 'visible' => true]);
             $tomorrow = Carbon::tomorrow()->format("l, F j, Y");
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'[aria-label="' . $tomorrow . '"]\').click();'));
