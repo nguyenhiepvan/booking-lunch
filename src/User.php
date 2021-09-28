@@ -74,7 +74,7 @@ class User
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'#cdk-overlay-4 > nz-modal-container > div > div > div > app-popup-add-item > app-d-form > div > form > div.card-footer.text-xl-right.d-flex.justify-content-end.ng-star-inserted > span:nth-child(2) > button\').click();'));
             $page->waitForSelector('nz-notification > div > div', ['timeout' => 60000, 'visible' => true]);
             return true;
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
         }
         return false;
     }
