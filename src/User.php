@@ -21,15 +21,11 @@ class User
     private $browser;
     private string $username;
     private string $password;
-    private string $position;
-    private string $company;
 
-    public function __construct(string $username, string $password, string $position, string $company, string $proxy = null, bool $headless = true)
+    public function __construct(string $username, string $password,string $proxy = null, bool $headless = true)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->position = $position;
-        $this->company  = $company;
         $puppeteer      = new Puppeteer([
             'read_timeout' => 600, // 10 minutes
             'idle_timeout' => 180, // 3 minutes
