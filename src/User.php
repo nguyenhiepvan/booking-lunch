@@ -21,12 +21,16 @@ class User
     private $browser;
     private string $username;
     private string $password;
+    private string $company;
+    private string $possition;
 
-    public function __construct(string $username, string $password, bool $headless = true, string $proxy = null)
+    public function __construct(string $username, string $password, string $company, string $possition, bool $headless = true, string $proxy = null)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $puppeteer      = new Puppeteer([
+        $this->username  = $username;
+        $this->password  = $password;
+        $this->company   = $company;
+        $this->possition = $possition;
+        $puppeteer       = new Puppeteer([
             'read_timeout' => 600, // 10 minutes
             'idle_timeout' => 180, // 3 minutes
         ]);
@@ -73,13 +77,14 @@ class User
     {
         try {
             $page->tryCatch->goto(config("lunch-booking.booking_url"));
-            $page->waitForSelector('#layoutEmbed > app-dynamic-embed > app-dynamic-layout-detail > div > layout-embed > div > layout-embed-stack:nth-child(1) > div > nz-affix > div > div > app-d-view > data-table > app-render-tree > div > div > ejs-schedule > div.e-table-container > div > table', ['timeout' => 60000, 'visible' => true]);
             $next_day = now()->addDays(now()->dayOfWeek === Carbon::FRIDAY ? 3 : 1)->format("l, F j, Y");
+            $page->waitForSelector('[aria-label="' . $next_day . '"]', ['timeout' => 60000, 'visible' => true]);
 
             //Add event
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'[aria-label="' . $next_day . '"]\').click();'));
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'#layoutEmbed > app-dynamic-embed > app-dynamic-layout-detail > div > layout-embed > div > layout-embed-stack:nth-child(1) > div > nz-affix > div > div > app-d-view > data-table > app-render-tree > div > div > ejs-schedule > div.e-quick-popup-wrapper.e-lib.e-popup.e-control.e-popup-open > div > div.e-popup-footer > div > button\').click();'));
-            $page->waitForSelector('#canvas > div > div > div > div:nth-child(1) > div:nth-child(2) > div > app-dynamic-dropdown-control-form > div > div.drop-has-filter.ng-star-inserted > div.d-flex.flex-nowrap.align-items-center.form-control-group.background-component-main.w-100 > nz-select > nz-select-top-control', ['timeout' => 60000, 'visible' => true]);
+            $page->waitForSelector('[title="' . $this->company . '"]', ['timeout' => 60000, 'visible' => true]);
+            $page->waitForSelector('[title="' . $this->possition . '"]', ['timeout' => 60000, 'visible' => true]);
             //Submit form
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'#cdk-overlay-4 > nz-modal-container > div > div > div > app-popup-add-item > app-d-form > div > form > div.card-footer.text-xl-right.d-flex.justify-content-end.ng-star-inserted > span:nth-child(2) > button\').click();'));
             $page->waitForSelector('nz-notification > div > div', ['timeout' => 60000, 'visible' => true]);
