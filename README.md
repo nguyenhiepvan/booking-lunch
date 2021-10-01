@@ -21,7 +21,7 @@ php artisan vendor:publish --tag=booking-lunch-config
 $user = new Nguyenhiep\BookingLunch\User("111","12345");
 
 //For testing
-//$user = new Nguyenhiep\BookingLunch\User("111","12345",null,false);
+//$user = new Nguyenhiep\BookingLunch\User("111","12345",false);
 
 $page = $user->login();
 $user->book_lunch($page);

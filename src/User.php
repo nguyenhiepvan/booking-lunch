@@ -22,7 +22,7 @@ class User
     private string $username;
     private string $password;
 
-    public function __construct(string $username, string $password,string $proxy = null, bool $headless = true)
+    public function __construct(string $username, string $password, bool $headless = true,string $proxy = null)
     {
         $this->username = $username;
         $this->password = $password;
