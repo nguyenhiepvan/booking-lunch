@@ -18,10 +18,10 @@ php artisan vendor:publish --tag=booking-lunch-config
 
 ```php
 
-$user = new Nguyenhiep\BookingLunch\User("111","12345","Dãy 20","WeSave");
+$user = new Nguyenhiep\BookingLunch\User("111","12345");
 
 //For testing
-//$user = new Nguyenhiep\BookingLunch\User("111","12345","Dãy 20","WeSave",null,false);
+//$user = new Nguyenhiep\BookingLunch\User("111","12345",null,false);
 
 $page = $user->login();
 $user->book_lunch($page);
