@@ -22,7 +22,7 @@ class User
     private string $username;
     private string $password;
 
-    public function __construct(string $username, string $password, bool $headless = true,string $proxy = null)
+    public function __construct(string $username, string $password, bool $headless = true, string $proxy = null)
     {
         $this->username = $username;
         $this->password = $password;
@@ -74,9 +74,10 @@ class User
         try {
             $page->tryCatch->goto(config("lunch-booking.booking_url"));
             $page->waitForSelector('#layoutEmbed > app-dynamic-embed > app-dynamic-layout-detail > div > layout-embed > div > layout-embed-stack:nth-child(1) > div > nz-affix > div > div > app-d-view > data-table > app-render-tree > div > div > ejs-schedule > div.e-table-container > div > table', ['timeout' => 60000, 'visible' => true]);
-            $tomorrow = Carbon::tomorrow()->format("l, F j, Y");
+            $next_day = now()->addDays(now()->dayOfWeek === Carbon::FRIDAY ? 3 : 1)->format("l, F j, Y");
+
             //Add event
-            $page->evaluate(JsFunction::createWithBody('document.querySelector(\'[aria-label="' . $tomorrow . '"]\').click();'));
+            $page->evaluate(JsFunction::createWithBody('document.querySelector(\'[aria-label="' . $next_day . '"]\').click();'));
             $page->evaluate(JsFunction::createWithBody('document.querySelector(\'#layoutEmbed > app-dynamic-embed > app-dynamic-layout-detail > div > layout-embed > div > layout-embed-stack:nth-child(1) > div > nz-affix > div > div > app-d-view > data-table > app-render-tree > div > div > ejs-schedule > div.e-quick-popup-wrapper.e-lib.e-popup.e-control.e-popup-open > div > div.e-popup-footer > div > button\').click();'));
             $page->waitForSelector('#canvas > div > div > div > div:nth-child(1) > div:nth-child(2) > div > app-dynamic-dropdown-control-form > div > div.drop-has-filter.ng-star-inserted > div.d-flex.flex-nowrap.align-items-center.form-control-group.background-component-main.w-100 > nz-select > nz-select-top-control', ['timeout' => 60000, 'visible' => true]);
             //Submit form
